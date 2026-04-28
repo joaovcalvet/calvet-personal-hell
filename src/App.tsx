@@ -1,7 +1,8 @@
 import { useState } from "react";
 import TodoInput from "./components/TodoInput";
+import TodoItem from "./components/TodoItem";
 
-interface Todo {
+export interface Todo {
     id: number;
     text: string;
     completed: boolean;
@@ -45,6 +46,19 @@ function App() {
     return (
         <div>
             <h1>Calvet's Personal Hell</h1>
+
+            <div>
+                {todos.map((todo) => (
+                    <TodoItem
+                        key={todo.id}
+                        todo={todo}
+                        onToggle={toggleTodo}
+                        onEdit={editTodo}
+                        onRemove={removeTodo}
+                    />
+                ))}
+            </div>
+
             <TodoInput onAdd={addTodo} />
         </div>
     );
