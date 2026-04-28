@@ -13,6 +13,8 @@ function TodoItem({ todo, onEdit, onRemove, onToggle }: TodoItemProps) {
     const [isEditing, setIsEditing] = useState<boolean>(false);
 
     function handleSave() {
+        if (editText.trim() === "") return;
+
         onEdit(todo.id, editText);
 
         setEditText("");
