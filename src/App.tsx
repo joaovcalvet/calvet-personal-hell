@@ -1,4 +1,46 @@
+import { useState } from "react";
+
+interface Todo {
+  id: number;
+  text: string;
+  completed: boolean;
+}
+
 function App() {
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  function addTodo(text: string) {
+    const todo: Todo = {
+      id: Date.now(),
+      text: text,
+      completed: false,
+    };
+
+    setTodos([...todos, todo]);
+  }
+
+  function removeTodo(id: number) {
+    setTodos(todos.filter((v) => v.id !== id));
+  }
+
+  function toggleTodo(id: number) {
+    setTodos(
+      todos.map((v) => {
+        if (v.id === id) return { ...v, completed: !v.completed };
+        return v;
+      }),
+    );
+  }
+
+  function editTodo(id: number, newText: string) {
+    setTodos(
+      todos.map((v) => {
+        if (v.id === id) return { ...v, text: newText };
+        return v;
+      }),
+    );
+  }
+
   return <div>Calvet's Personal Hell</div>;
 }
 
