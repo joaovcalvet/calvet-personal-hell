@@ -1,47 +1,53 @@
 import { useState } from "react";
+import TodoInput from "./components/TodoInput";
 
 interface Todo {
-  id: number;
-  text: string;
-  completed: boolean;
+    id: number;
+    text: string;
+    completed: boolean;
 }
 
 function App() {
-  const [todos, setTodos] = useState<Todo[]>([]);
+    const [todos, setTodos] = useState<Todo[]>([]);
 
-  function addTodo(text: string) {
-    const todo: Todo = {
-      id: Date.now(),
-      text: text,
-      completed: false,
-    };
+    function addTodo(text: string) {
+        const todo: Todo = {
+            id: Date.now(),
+            text: text,
+            completed: false,
+        };
 
-    setTodos([...todos, todo]);
-  }
+        setTodos([...todos, todo]);
+    }
 
-  function removeTodo(id: number) {
-    setTodos(todos.filter((v) => v.id !== id));
-  }
+    function removeTodo(id: number) {
+        setTodos(todos.filter((v) => v.id !== id));
+    }
 
-  function toggleTodo(id: number) {
-    setTodos(
-      todos.map((v) => {
-        if (v.id === id) return { ...v, completed: !v.completed };
-        return v;
-      }),
+    function toggleTodo(id: number) {
+        setTodos(
+            todos.map((v) => {
+                if (v.id === id) return { ...v, completed: !v.completed };
+                return v;
+            }),
+        );
+    }
+
+    function editTodo(id: number, newText: string) {
+        setTodos(
+            todos.map((v) => {
+                if (v.id === id) return { ...v, text: newText };
+                return v;
+            }),
+        );
+    }
+
+    return (
+        <div>
+            <h1>Calvet's Personal Hell</h1>
+            <TodoInput onAdd={addTodo} />
+        </div>
     );
-  }
-
-  function editTodo(id: number, newText: string) {
-    setTodos(
-      todos.map((v) => {
-        if (v.id === id) return { ...v, text: newText };
-        return v;
-      }),
-    );
-  }
-
-  return <div>Calvet's Personal Hell</div>;
 }
 
 export default App;
